@@ -28,7 +28,8 @@
 ## 게임 실행 흐름 ( 예상 )
 ![download](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/490b2837-c841-48b4-887a-58dfc907f4a2)
 
-![giphy](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/ef415813-0ce4-4a13-b48d-2b3b02549c0a)
+![giphy](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/ef415813-0ce4-4a13-b48d-2b3b02549c0a)![hopping-cat-notes](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/85e3f747-33cc-453b-8328-61c055bc4c4e)
+
 
 ![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/d74ab492-d812-4564-83fa-73084c074fba) ![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/182788a2-dea8-4a3a-a602-b99c054fbdbb)![Crossy_Road_Gameplay](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/ccddb657-7180-496c-bbf6-ec4e695aec65)
 
