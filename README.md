@@ -29,24 +29,28 @@
 
 
 ## 게임 실행 흐름 ( 예상 )
-### Game
-![download](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/490b2837-c841-48b4-887a-58dfc907f4a2)
-### Die
-![maxresdefault](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/cbe4a0b5-fcf2-4bf5-bcd8-5ead534c665c)
 ### Move 
 ![giphy](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/ef415813-0ce4-4a13-b48d-2b3b02549c0a)![hopping-cat-notes]
-### Game Image
-![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/d74ab492-d812-4564-83fa-73084c074fba) ![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/182788a2-
 
 ## 클래스 구조 설계 구상 
-![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/c8b4ec7f-2742-43e8-8568-7f2d5a9dc0ce)
+![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/bb3642e6-9341-4359-8237-989b4d6b21bb)
+
+## 2D 맵 구성 
+![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/ea1a959c-d986-4334-bbcf-76be9ace0e68)
+
+## 아이디어
+2D 맵 타일에 Object 배치.
+
+자동차(움직임) 및 Obstacle Object 가 움직일 때는 해당 2D 맵 타일을 Walk ImPossible 로 바꾼다.
+Player 는 Walk Possible 구간만 움직일 수 있다. 
+필드는 한 줄 씩 생성된다.
 
 
 ## 개발 일정 
 -----------------
-    - 1주차 : 클래스 설계 및 구상 
-    - 2주차 : 리소스 수집 
-    - 3주차 : GameFramework 제작 
+    - 1주차 : [80%] 클래스 설계 및 구상 
+    - 2주차 : [80%] 리소스 수집                 --> PokeMon 이미지로 쓰겠습니다 ( 사유 : 길건너 친구들 리소스를 못 찾겠습니다. ) 
+    - 3주차 : [50%] GameFramework 제작          --> CookieRun, DragonFlight 참고중..
     - 4주차 : BackGround ( 종스크롤 ) 구현  
     - 5주차 : Player 구현 
     - 6주차 : 장애물 구현 ( 자동차, 나무 .. )
