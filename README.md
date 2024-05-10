@@ -39,6 +39,8 @@
 ![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/d74ab492-d812-4564-83fa-73084c074fba) ![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/182788a2-dea8-4a3a-a602-b99c054fbdbb)![Crossy_Road_Gameplay](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/ccddb657-7180-496c-bbf6-ec4e695aec65)
 
 
+## 클래스 구조 설계 구상 
+![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/c8b4ec7f-2742-43e8-8568-7f2d5a9dc0ce)
 
 
 ## 개발 일정 
