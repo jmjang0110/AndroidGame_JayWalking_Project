@@ -34,10 +34,9 @@
 ### Die
 ![maxresdefault](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/cbe4a0b5-fcf2-4bf5-bcd8-5ead534c665c)
 ### Move 
-![giphy](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/ef415813-0ce4-4a13-b48d-2b3b02549c0a)![hopping-cat-notes](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/85e3f747-33cc-453b-8328-61c055bc4c4e)
+![giphy](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/ef415813-0ce4-4a13-b48d-2b3b02549c0a)![hopping-cat-notes]
 ### Game Image
-![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/d74ab492-d812-4564-83fa-73084c074fba) ![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/182788a2-dea8-4a3a-a602-b99c054fbdbb)![Crossy_Road_Gameplay](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/ccddb657-7180-496c-bbf6-ec4e695aec65)
-
+![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/d74ab492-d812-4564-83fa-73084c074fba) ![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/182788a2-
 
 ## 클래스 구조 설계 구상 
 ![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/c8b4ec7f-2742-43e8-8568-7f2d5a9dc0ce)
