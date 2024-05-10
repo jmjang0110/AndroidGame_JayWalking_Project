@@ -38,6 +38,7 @@
 
 ## 2D 맵 구성 
 ![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/ea1a959c-d986-4334-bbcf-76be9ace0e68)
+![image](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/5a0a176b-784a-41ef-9315-15797ed2d175)
 
 ##상호작용 정보 
 2D 맵에서 장애물등 타일의 타입을 변경하며 움직입니다.
