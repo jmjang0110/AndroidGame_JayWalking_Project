@@ -6,7 +6,7 @@ import android.graphics.Paint;
 
 import androidx.core.content.res.ResourcesCompat;
 
-import kr.ac.tukorea.ge.spgp2024.dragonflight.R;
+import kr.ac.tukorea.ge.spgp2024.JayWalking.R;
 import kr.ac.tukorea.ge.spgp2024.framework.view.GameView;
 
 public class Gauge {

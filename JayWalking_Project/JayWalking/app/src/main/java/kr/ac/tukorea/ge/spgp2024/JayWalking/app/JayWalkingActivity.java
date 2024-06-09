@@ -8,8 +8,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import kr.ac.tukorea.ge.spgp2024.dragonflight.R;
-import kr.ac.tukorea.ge.spgp2024.dragonflight.game.MainScene;
+import kr.ac.tukorea.ge.spgp2024.JayWalking.R;
+import kr.ac.tukorea.ge.spgp2024.JayWalking.game.MainScene;
 import kr.ac.tukorea.ge.spgp2024.framework.activity.GameActivity;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;
 

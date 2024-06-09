@@ -1,8 +1,8 @@
-package kr.ac.tukorea.ge.spgp2024.dragonflight.game;
+package kr.ac.tukorea.ge.spgp2024.JayWalking.game;
 
 import android.view.MotionEvent;
 
-import kr.ac.tukorea.ge.spgp2024.dragonflight.R;
+import kr.ac.tukorea.ge.spgp2024.JayWalking.R;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.VertScrollBackground;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.Score;
 import kr.ac.tukorea.ge.spgp2024.framework.scene.Scene;

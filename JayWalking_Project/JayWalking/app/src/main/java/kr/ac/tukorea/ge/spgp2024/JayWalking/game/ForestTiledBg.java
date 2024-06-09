@@ -1,4 +1,4 @@
-package kr.ac.tukorea.ge.spgp2024.dragonflight.game;
+package kr.ac.tukorea.ge.spgp2024.JayWalking.game;
 
 import kr.ac.tukorea.ge.spgp2024.framework.objects.TiledBackground;
 

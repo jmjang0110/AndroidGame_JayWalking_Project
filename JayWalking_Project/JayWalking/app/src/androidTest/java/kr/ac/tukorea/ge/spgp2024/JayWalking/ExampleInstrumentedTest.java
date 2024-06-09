@@ -1,4 +1,4 @@
-package kr.ac.tukorea.ge.spgp2024.dragonflight;
+package kr.ac.tukorea.ge.spgp2024.JayWalking;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("kr.ac.tukorea.ge.spgp2024.dragonflight", appContext.getPackageName());
+        assertEquals("kr.ac.tukorea.ge.spgp2024.JayWalking", appContext.getPackageName());
     }
 }

@@ -9,9 +9,9 @@ import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
-import kr.ac.tukorea.ge.spgp2024.dragonflight.BuildConfig;
-import kr.ac.tukorea.ge.spgp2024.dragonflight.game.Enemy;
-import kr.ac.tukorea.ge.spgp2024.dragonflight.game.MainScene;
+import kr.ac.tukorea.ge.spgp2024.JayWalking.BuildConfig;
+import kr.ac.tukorea.ge.spgp2024.JayWalking.game.Enemy;
+import kr.ac.tukorea.ge.spgp2024.JayWalking.game.MainScene;
 import kr.ac.tukorea.ge.spgp2024.framework.activity.GameActivity;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IGameObject;

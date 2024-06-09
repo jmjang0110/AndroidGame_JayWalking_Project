@@ -18,8 +18,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import kr.ac.tukorea.ge.spgp2024.dragonflight.R;
-import kr.ac.tukorea.ge.spgp2024.dragonflight.databinding.ActivityMainBinding;
+import kr.ac.tukorea.ge.spgp2024.JayWalking.R;
+import kr.ac.tukorea.ge.spgp2024.JayWalking.databinding.ActivityMainBinding;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IGameObject;
 
 public class MainActivity extends AppCompatActivity {

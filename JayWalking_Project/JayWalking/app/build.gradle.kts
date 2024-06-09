@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "kr.ac.tukorea.ge.spgp2024.dragonflight"
+    namespace = "kr.ac.tukorea.ge.spgp2024.JayWalking"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "kr.ac.tukorea.ge.spgp2024.dragonflight"
+        applicationId = "kr.ac.tukorea.ge.spgp2024.JayWalking"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

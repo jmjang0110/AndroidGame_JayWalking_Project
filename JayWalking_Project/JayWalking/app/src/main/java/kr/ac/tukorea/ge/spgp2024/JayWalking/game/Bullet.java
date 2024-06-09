@@ -1,8 +1,8 @@
-package kr.ac.tukorea.ge.spgp2024.dragonflight.game;
+package kr.ac.tukorea.ge.spgp2024.JayWalking.game;
 
 import android.graphics.RectF;
 
-import kr.ac.tukorea.ge.spgp2024.dragonflight.R;
+import kr.ac.tukorea.ge.spgp2024.JayWalking.R;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.Sprite;
