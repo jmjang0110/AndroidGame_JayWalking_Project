@@ -26,24 +26,24 @@ public class TileStruct {
         this.Pos = position;
         switch (tp) {
             case WATER:
-                this.PixelSize = new Vector2(50, 50); // 예시 크기
-                this.PixelLT = new Vector2(100, 100); // 예시 위치
+                this.PixelSize = new Vector2(64, 64); // 예시 크기
+                this.PixelLT = new Vector2(128, 320); // 예시 위치
                 break;
             case ROAD:
-                this.PixelSize = new Vector2(60, 60); // 예시 크기
-                this.PixelLT = new Vector2(200, 200); // 예시 위치
+                this.PixelSize = new Vector2(33, 33); // 예시 크기
+                this.PixelLT = new Vector2(0, 0); // 예시 위치
                 break;
             case OBSTRUCT:
-                this.PixelSize = new Vector2(70, 70); // 예시 크기
-                this.PixelLT = new Vector2(300, 300); // 예시 위치
+                this.PixelSize = new Vector2(64, 64); // 예시 크기
+                this.PixelLT = new Vector2(0, 252); // 예시 위치
                 break;
             case PLAYER:
                 this.PixelSize = new Vector2(80, 80); // 예시 크기
                 this.PixelLT = new Vector2(400, 400); // 예시 위치
                 break;
             case CAR:
-                this.PixelSize = new Vector2(90, 90); // 예시 크기
-                this.PixelLT = new Vector2(500, 500); // 예시 위치
+                this.PixelSize = new Vector2(64, 64); // 예시 크기
+                this.PixelLT = new Vector2(0, 193); // 예시 위치
                 break;
             default:
                 // 기본적으로 (0, 0) 크기와 위치로 설정
@@ -55,28 +55,13 @@ public class TileStruct {
     public void draw(Canvas canvas, Bitmap bmp) {
         Rect srcRect = new Rect();
         RectF dstRect = new RectF();
-        getTileRect(bmp, srcRect);
 
+        srcRect.set((int)this.PixelLT.x, (int)this.PixelLT.y,
+                (int)this.PixelLT.x + (int)PixelSize.x , (int)this.PixelLT.y + (int)PixelSize.y);
         dstRect.set(this.Pos.x, this.Pos.y, this.Pos.x + TileWH.x , this.Pos.y + TileWH.y);
         canvas.drawBitmap(bmp, srcRect, dstRect, null);
 
     }
 
 
-    private Rect getTileRect(Bitmap bmp, Rect rect) {
-        int ImageWidth = bmp.getWidth();
-        int ImageHeight = bmp.getHeight();
-
-        // 타일셋에서 한 타일의 가로와 세로 길이를 계산합니다.
-        int W = ImageWidth / (int) Metrics.width;
-        int H = ImageHeight / (int) Metrics.height;
-
-        // 타일 번호로부터 행과 열을 계산합니다.
-        int row = this.tp.ordinal() /  (int)Metrics.width;
-        int col = this.tp.ordinal() %  (int)Metrics.height;
-
-        // 타일의 srcRect를 설정합니다.
-        rect.set(col * (int) W, row * (int) H, (col + 1) * (int) W, (row + 1) * (int) H);
-        return rect;
-    }
 }
