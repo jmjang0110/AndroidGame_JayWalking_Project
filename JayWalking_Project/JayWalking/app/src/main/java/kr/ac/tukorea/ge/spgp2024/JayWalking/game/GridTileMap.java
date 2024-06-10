@@ -84,7 +84,7 @@ public class GridTileMap implements IGameObject {
                 float drawX = startX + (x - startCol) * tileWidth;
                 Vector2 Position = new Vector2(drawX, drawY);
                 map[y][x] = new TileStruct(tileTypes[randomIndex], Position);
-
+                map[y][x].TileWH = new Vector2(tileWidth,tileHeight);
             }
         }
 
@@ -127,12 +127,13 @@ public class GridTileMap implements IGameObject {
                 float drawX = startX + (x - startCol) * tileWidth;
 
                 // 타일 비트맵을 그립니다.
-                int tileNo = tileMap[y % rows][x % cols].tp.ordinal();
-                getTileRect(tileNo, srcRect);
+                //int tileNo = tileMap[y % rows][x % cols].tp.ordinal();
+                //getTileRect(tileNo, srcRect);
 
-                dstRect.set(drawX, drawY, drawX + tileWidth , drawY + tileHeight);
-                canvas.drawBitmap(tileSetBitmap, srcRect, dstRect, null);
+                //dstRect.set(drawX, drawY, drawX + tileWidth , drawY + tileHeight);
+                //canvas.drawBitmap(tileSetBitmap, srcRect, dstRect, null);
 
+                tileMap[y][x].draw(canvas, this.tileSetBitmap);
                 // 그리드 선을 그립니다.
                 canvas.drawLine(drawX, drawY, drawX + tileWidth, drawY, gridPaint); // 타일 상단 가로선
                 canvas.drawLine(drawX, drawY, drawX, drawY + tileHeight, gridPaint); // 타일 왼쪽 세로선
