@@ -20,6 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import kr.ac.tukorea.ge.spgp2024.JayWalking.R;
 import kr.ac.tukorea.ge.spgp2024.JayWalking.databinding.ActivityMainBinding;
+import kr.ac.tukorea.ge.spgp2024.JayWalking.game.GridTileMap;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IGameObject;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         createAnimator();
+
+
+
     }
 
     private void createAnimator() {

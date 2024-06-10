@@ -12,6 +12,8 @@ public class MainScene extends Scene {
     private static final String TAG = MainScene.class.getSimpleName();
     private final Fighter fighter;
     Score score; // package private
+    public GridTileMap gridTileMap;
+
 
     public int getScore() {
         return score.getScore();
@@ -37,6 +39,24 @@ public class MainScene extends Scene {
         this.score = new Score(R.mipmap.number_24x32, Metrics.width - 0.5f, 0.5f, 0.6f);
         score.setScore(0);
         add(Layer.ui, score);
+
+        // 화면의 폭과 높이를 측정합니다.
+        float screenWidth = Metrics.width;
+        float screenHeight = Metrics.height;
+
+        int numRows = 8;
+        int numCols = 6;
+
+        float tileWidth = screenWidth / numCols;
+        float tileHeight = screenHeight / numRows;
+
+        // 타일 맵을 초기화합니다.
+        int[][] tileMap = new int[numRows][numCols];
+        // 타일 맵에 필요한 데이터를 채웁니다.
+
+        // GridTileMap을 생성하고 추가합니다.
+        this.gridTileMap = new GridTileMap("forest_tiles.png", tileMap, tileWidth, tileHeight);
+        add(Layer.bg, gridTileMap);
     }
 
     public void addScore(int amount) {
