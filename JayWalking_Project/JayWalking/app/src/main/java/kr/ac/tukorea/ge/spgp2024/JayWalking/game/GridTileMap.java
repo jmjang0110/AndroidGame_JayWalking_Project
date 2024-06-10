@@ -24,7 +24,7 @@ import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
 public class GridTileMap implements IGameObject {
     private static final String TAG = GridTileMap.class.getSimpleName();
-    private final int[][] tileMap;
+    private final TileStruct[][] tileMap;
     private final int rows;
     private final int cols;
 
@@ -55,15 +55,36 @@ public class GridTileMap implements IGameObject {
     }
 
     // generateTileMap 메서드는 10x20 크기의 랜덤 타일 맵을 생성하는 보조 메서드입니다.
-    private int[][] generateTileMap() {
-        int[][] map = new int[rows][cols];
+    private TileStruct[][] generateTileMap() {
+        TileStruct[][] map = new TileStruct[rows][cols];
         Random random = new Random();
         int numTiles = (tileSetBitmap.getWidth() / (int) tileWidth) * (tileSetBitmap.getHeight() / (int) tileHeight);
 
+        float scroll_x = scrollX, scroll_y = scrollY;
+        if (wraps) {
+            scroll_x %= cols * tileWidth;
+            if (scroll_x < 0) scroll_x += cols * tileWidth;
+            scroll_y %= rows * tileHeight;
+            if (scroll_y < 0) scroll_y += rows * tileHeight;
+        }
+
+        int startCol = (int) (scroll_x / tileWidth);
+        float startX = -(scroll_x % tileWidth);
+        int startRow = (int) (scroll_y / tileHeight);
+        float startY = -(scroll_y % tileHeight);
+
         for (int y = 0; y < rows; y++) {
+            float drawY = startY + (y - startRow) * tileHeight;
             for (int x = 0; x < cols; x++) {
-                int randomIndex = 1 + random.nextInt(10);
-                map[y][x] = randomIndex;
+                random = new Random();
+                TileStruct.TileType[] tileTypes = TileStruct.TileType.values();
+                int randomIndex = random.nextInt(tileTypes.length);
+
+
+                float drawX = startX + (x - startCol) * tileWidth;
+                Vector2 Position = new Vector2(drawX, drawY);
+                map[y][x] = new TileStruct(tileTypes[randomIndex], Position);
+
             }
         }
 
@@ -106,7 +127,7 @@ public class GridTileMap implements IGameObject {
                 float drawX = startX + (x - startCol) * tileWidth;
 
                 // 타일 비트맵을 그립니다.
-                int tileNo = tileMap[y % rows][x % cols];
+                int tileNo = tileMap[y % rows][x % cols].tp.ordinal();
                 getTileRect(tileNo, srcRect);
 
                 dstRect.set(drawX, drawY, drawX + tileWidth , drawY + tileHeight);
