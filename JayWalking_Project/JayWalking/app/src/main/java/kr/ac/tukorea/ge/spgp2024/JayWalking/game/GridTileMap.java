@@ -10,12 +10,11 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Paint;
-import android.media.Image;
+import android.util.Log;
+import android.view.MotionEvent;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Random;
 
 import kr.ac.tukorea.ge.spgp2024.framework.activity.GameActivity;
@@ -36,7 +35,15 @@ public class GridTileMap implements IGameObject {
     private final Bitmap tileSetBitmap;
     private final Paint gridPaint;
 
+    public MainPlayer mainPlayer;
 
+    // Button-related fields
+    private RectF UpbuttonRect;
+    private RectF DownbuttonRect;
+    private RectF RightButtonRect;
+    private RectF LeftButtonRect;
+
+    private Bitmap buttonBitmap;
 
     public GridTileMap(String tileSetAsset, int[][] tileMap, float tileWidth, float tileHeight) {
         this.tileSetBitmap = loadBitmapAsset(tileSetAsset);
@@ -47,17 +54,25 @@ public class GridTileMap implements IGameObject {
 
         // Initialize gridPaint
         gridPaint = new Paint();
-        gridPaint.setColor(Color.BLUE); // Grid line color (white in this example)
-        gridPaint.setStyle(Paint.Style.STROKE); // Drawing style: only stroke without filling
-        gridPaint.setStrokeWidth(0.05f); // Grid line thickness (2 pixels in this example)
-        this.tileMap = generateTileMap(); // Generate a new 10x20 tile map
+        gridPaint.setColor(Color.BLUE);
+        gridPaint.setStyle(Paint.Style.STROKE);
+        gridPaint.setStrokeWidth(0.05f);
+        this.tileMap = generateTileMap();
+
+        this.mainPlayer = new MainPlayer("MainPlayer2.png");
+
+        // Initialize buttons
+        UpbuttonRect = new RectF(7.5f, 14.5f, 9.f, 16.f);
+        DownbuttonRect = new RectF(0.f, 14.5f, 1.5f, 16.f);
+        RightButtonRect = new RectF(7.5f, 13.f, 9.f, 14.5f);
+        LeftButtonRect = new RectF(0.f, 13.f, 1.5f, 14.5f);
+
+        buttonBitmap = loadBitmapAsset("Button.png");
     }
 
-    // generateTileMap 메서드는 10x20 크기의 랜덤 타일 맵을 생성하는 보조 메서드입니다.
     private TileStruct[][] generateTileMap() {
         TileStruct[][] map = new TileStruct[rows][cols];
         Random random = new Random();
-        int numTiles = (tileSetBitmap.getWidth() / (int) tileWidth) * (tileSetBitmap.getHeight() / (int) tileHeight);
 
         float scroll_x = scrollX, scroll_y = scrollY;
         if (wraps) {
@@ -79,16 +94,16 @@ public class GridTileMap implements IGameObject {
                 TileStruct.TileType[] tileTypes = TileStruct.TileType.values();
                 int randomIndex = random.nextInt(tileTypes.length);
 
-
                 float drawX = startX + (x - startCol) * tileWidth;
                 Vector2 Position = new Vector2(drawX, drawY);
                 map[y][x] = new TileStruct(tileTypes[randomIndex], Position);
-                map[y][x].TileWH = new Vector2(tileWidth,tileHeight);
+                map[y][x].TileWH = new Vector2(tileWidth, tileHeight);
             }
         }
 
         return map;
     }
+
     public void scrollTo(float x, float y) {
         scrollX = x;
         scrollY = y;
@@ -100,9 +115,8 @@ public class GridTileMap implements IGameObject {
 
     @Override
     public void update(float elapsedSeconds) {
-        // Update logic if needed
+        mainPlayer.update(elapsedSeconds);
     }
-
 
     @Override
     public void draw(Canvas canvas) {
@@ -119,27 +133,31 @@ public class GridTileMap implements IGameObject {
         int startRow = (int) (scroll_y / tileHeight);
         float startY = -(scroll_y % tileHeight);
 
-
         for (int y = startRow; y < rows && startY < Metrics.height; y++) {
             float drawY = startY + (y - startRow) * tileHeight;
             for (int x = startCol; x < cols && startX < Metrics.width; x++) {
                 float drawX = startX + (x - startCol) * tileWidth;
 
-                // 타일 비트맵을 그립니다.
-                //int tileNo = tileMap[y % rows][x % cols].tp.ordinal();
-                //getTileRect(tileNo, srcRect);
-
-                //dstRect.set(drawX, drawY, drawX + tileWidth , drawY + tileHeight);
-                //canvas.drawBitmap(tileSetBitmap, srcRect, dstRect, null);
-
                 tileMap[y][x].draw(canvas, this.tileSetBitmap);
-                // 그리드 선을 그립니다.
-                canvas.drawLine(drawX, drawY, drawX + tileWidth, drawY, gridPaint); // 타일 상단 가로선
-                canvas.drawLine(drawX, drawY, drawX, drawY + tileHeight, gridPaint); // 타일 왼쪽 세로선
-                canvas.drawLine(drawX + tileWidth, drawY, drawX + tileWidth, drawY + tileHeight, gridPaint); // 타일 오른쪽 세로선
-                canvas.drawLine(drawX, drawY + tileHeight, drawX + tileWidth, drawY + tileHeight, gridPaint); // 타일 하단 가로선
+
+                canvas.drawLine(drawX, drawY, drawX + tileWidth, drawY, gridPaint);
+                canvas.drawLine(drawX, drawY, drawX, drawY + tileHeight, gridPaint);
+                canvas.drawLine(drawX + tileWidth, drawY, drawX + tileWidth, drawY + tileHeight, gridPaint);
+                canvas.drawLine(drawX, drawY + tileHeight, drawX + tileWidth, drawY + tileHeight, gridPaint);
             }
         }
+
+        this.mainPlayer.draw(canvas);
+
+        // Draw buttons using the bitmap
+        Rect srcRect = new Rect(800, 0, 1600, 781);
+        canvas.drawBitmap(buttonBitmap, srcRect, UpbuttonRect, null);
+        srcRect = new Rect(800, 781, 1600, 1562);
+        canvas.drawBitmap(buttonBitmap, srcRect, DownbuttonRect, null);
+        srcRect = new Rect(0, 781, 800, 1562);
+        canvas.drawBitmap(buttonBitmap, srcRect, LeftButtonRect, null);
+        srcRect = new Rect(1600, 781, 2400, 1562);
+        canvas.drawBitmap(buttonBitmap, srcRect, RightButtonRect, null);
     }
 
     private Bitmap loadBitmapAsset(String fileName) {
@@ -155,17 +173,66 @@ public class GridTileMap implements IGameObject {
         int ImageWidth = tileSetBitmap.getWidth();
         int ImageHeight = tileSetBitmap.getHeight();
 
-        // 타일셋에서 한 타일의 가로와 세로 길이를 계산합니다.
         int W = ImageWidth / (int) Metrics.width;
         int H = ImageHeight / (int) Metrics.height;
 
-        // 타일 번호로부터 행과 열을 계산합니다.
-        int row = tileNo /  (int)Metrics.width;
-        int col = tileNo %  (int)Metrics.height;
+        int row = tileNo / (int) Metrics.width;
+        int col = tileNo % (int) Metrics.height;
 
-        // 타일의 srcRect를 설정합니다.
-        rect.set(col * (int) W, row * (int) H, (col + 1) * (int) W, (row + 1) * (int) H);
+        rect.set(col * W, row * H, (col + 1) * W, (row + 1) * H);
         return rect;
+    }
+
+    public boolean onTouch(MotionEvent event) {
+        float[] pts = Metrics.fromScreen(event.getX(), event.getY());
+        if (UpbuttonRect.contains(pts[0], pts[1])) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if ((int)mainPlayer.IndexFromTileMap.y - 1 >= 0) {
+                    TileStruct.TileType type = tileMap[(int) mainPlayer.IndexFromTileMap.y - 1][(int) mainPlayer.IndexFromTileMap.x].tp;
+                    if (type != TileStruct.TileType.OBSTRUCT) {
+                        mainPlayer.decrementIndexY();
+                    }
+                }
+                return true;
+            }
+        }
+        if (DownbuttonRect.contains(pts[0], pts[1])) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if ((int)mainPlayer.IndexFromTileMap.y + 1 < rows) {
+                    TileStruct.TileType type = tileMap[(int)mainPlayer.IndexFromTileMap.y + 1][(int)mainPlayer.IndexFromTileMap.x].tp;
+                    if (type != TileStruct.TileType.OBSTRUCT) {
+                        mainPlayer.incrementIndexY(rows);
+                    }
+                }
+
+                return true;
+            }
+        }
+        if (RightButtonRect.contains(pts[0], pts[1])) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if ((int)mainPlayer.IndexFromTileMap.x + 1 < cols) {
+                    TileStruct.TileType type = tileMap[(int)mainPlayer.IndexFromTileMap.y][(int)mainPlayer.IndexFromTileMap.x + 1].tp;
+                    if (type != TileStruct.TileType.OBSTRUCT) {
+                        mainPlayer.incrementIndexX(cols);
+                    }
+                }
+
+                return true;
+            }
+        }
+        if (LeftButtonRect.contains(pts[0], pts[1])) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if ((int)mainPlayer.IndexFromTileMap.x - 1 >= 0) {
+                    TileStruct.TileType type = tileMap[(int)mainPlayer.IndexFromTileMap.y][(int)mainPlayer.IndexFromTileMap.x - 1].tp;
+                    if (type != TileStruct.TileType.OBSTRUCT) {
+                        mainPlayer.decrementIndexX();
+                    }
+                }
+
+                return true;
+            }
+        }
+        return this.mainPlayer.onTouch(event);
     }
 
 }
