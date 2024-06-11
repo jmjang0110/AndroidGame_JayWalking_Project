@@ -28,8 +28,6 @@ public class GridTileMap implements IGameObject {
     private final int rows;
     private final int cols;
 
-    private final Rect srcRect = new Rect();
-    private final RectF dstRect = new RectF();
     private final float tileWidth;
     private final float tileHeight;
     private float scrollX, scrollY;
@@ -37,6 +35,7 @@ public class GridTileMap implements IGameObject {
 
     private final Bitmap tileSetBitmap;
     private final Paint gridPaint;
+
 
 
     public GridTileMap(String tileSetAsset, int[][] tileMap, float tileWidth, float tileHeight) {

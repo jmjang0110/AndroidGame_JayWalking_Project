@@ -11,6 +11,8 @@ import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 public class MainScene extends Scene {
     private static final String TAG = MainScene.class.getSimpleName();
     private final Fighter fighter;
+    private final MainPlayer mainPlayer;
+
     Score score; // package private
     public GridTileMap gridTileMap;
 
@@ -57,6 +59,10 @@ public class MainScene extends Scene {
         // GridTileMap을 생성하고 추가합니다.
         this.gridTileMap = new GridTileMap("forest_tiles.png", tileMap, tileWidth, tileHeight);
         add(Layer.bg, gridTileMap);
+
+        this.mainPlayer = new MainPlayer("MainPlayer2.png");
+        add(Layer.player, mainPlayer);
+
     }
 
     public void addScore(int amount) {
