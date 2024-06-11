@@ -115,7 +115,16 @@ public class GridTileMap implements IGameObject {
 
     @Override
     public void update(float elapsedSeconds) {
-        mainPlayer.update(elapsedSeconds);
+
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
+                tileMap[y][x].update(elapsedSeconds);
+            }
+        }
+
+        mainPlayer.update(elapsedSeconds); // anim uodate
+        mainPlayer.Pos = tileMap[(int)mainPlayer.IndexFromTileMap.y][(int)mainPlayer.IndexFromTileMap.x].Pos; // pos update
+
     }
 
     @Override
@@ -133,19 +142,15 @@ public class GridTileMap implements IGameObject {
         int startRow = (int) (scroll_y / tileHeight);
         float startY = -(scroll_y % tileHeight);
 
-        for (int y = startRow; y < rows && startY < Metrics.height; y++) {
-            float drawY = startY + (y - startRow) * tileHeight;
-            for (int x = startCol; x < cols && startX < Metrics.width; x++) {
-                float drawX = startX + (x - startCol) * tileWidth;
+        int endCol = Math.min(startCol + (int) (Metrics.width / tileWidth) + 2, cols); // Adjust +2 for potential negative startX
+        int endRow = Math.min(startRow + (int) (Metrics.height / tileHeight) + 2, rows); // Adjust +2 for potential negative startY
 
+        for (int y = 0; y < endRow; y++) {
+            for (int x = 0; x < endCol; x++) {
                 tileMap[y][x].draw(canvas, this.tileSetBitmap);
-
-                canvas.drawLine(drawX, drawY, drawX + tileWidth, drawY, gridPaint);
-                canvas.drawLine(drawX, drawY, drawX, drawY + tileHeight, gridPaint);
-                canvas.drawLine(drawX + tileWidth, drawY, drawX + tileWidth, drawY + tileHeight, gridPaint);
-                canvas.drawLine(drawX, drawY + tileHeight, drawX + tileWidth, drawY + tileHeight, gridPaint);
             }
         }
+
 
         this.mainPlayer.draw(canvas);
 

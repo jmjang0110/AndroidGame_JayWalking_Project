@@ -51,8 +51,8 @@ public class MainPlayer implements IGameObject {
         }
 
         // 인덱스에 따른 Pos 값 계산
-        Pos.x = IndexFromTileMap.x * (9.f / 6.f);
-        Pos.y = IndexFromTileMap.y * (16.f / 8.f);
+        //Pos.x = IndexFromTileMap.x * (9.f / 6.f);
+        //Pos.y = IndexFromTileMap.y * (16.f / 8.f);
     }
 
     @Override

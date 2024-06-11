@@ -3,6 +3,8 @@ package kr.ac.tukorea.ge.spgp2024.JayWalking.game;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
@@ -20,6 +22,8 @@ public class TileStruct {
     public Vector2 TileWH; // tile width(x), tile height(y)
     public Vector2 PixelLT; // 타일이 비트맵에서 그려질 위치 ( type 에 따라 달라짐 )
     public Vector2 PixelSize; // LT 에서 쓰일 사이즈
+    // 테두리를 그릴 때 사용할 Paint 객체
+    private Paint borderPaint;
 
     public TileStruct(TileType type, Vector2 position) {
         this.tp = type;
@@ -51,7 +55,19 @@ public class TileStruct {
                 this.PixelLT = new Vector2(0, 0);
                 break;
         }
+        // 테두리 Paint 객체 초기화
+        borderPaint = new Paint();
+        borderPaint.setStyle(Paint.Style.STROKE);
+        borderPaint.setColor(Color.BLACK);
+        borderPaint.setStrokeWidth(0.05f); // 테두리 선의 두께 조절
     }
+
+
+    public void update(float elapsedSeconds) {
+
+        this.Pos.y += elapsedSeconds * 0.5f;
+    }
+
     public void draw(Canvas canvas, Bitmap bmp) {
         Rect srcRect = new Rect();
         RectF dstRect = new RectF();
@@ -61,7 +77,8 @@ public class TileStruct {
         dstRect.set(this.Pos.x, this.Pos.y, this.Pos.x + TileWH.x , this.Pos.y + TileWH.y);
         canvas.drawBitmap(bmp, srcRect, dstRect, null);
 
+        // Draw border around the tile
+
+        //canvas.drawRect(dstRect.left, dstRect.top, dstRect.right, dstRect.bottom, borderPaint);
     }
-
-
 }
