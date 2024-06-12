@@ -23,7 +23,9 @@ import kr.ac.tukorea.ge.spgp2024.framework.view.Metrics;
 
 public class GridTileMap implements IGameObject {
     private static final String TAG = GridTileMap.class.getSimpleName();
+    public  TileStruct[][] CurTileMap;
     private final TileStruct[][] tileMap;
+    private final TileStruct[][] tileMap2;
     private final int rows;
     private final int cols;
 
@@ -57,7 +59,9 @@ public class GridTileMap implements IGameObject {
         gridPaint.setColor(Color.BLUE);
         gridPaint.setStyle(Paint.Style.STROKE);
         gridPaint.setStrokeWidth(0.05f);
-        this.tileMap = generateTileMap();
+        this.tileMap = generateTileMap(new Vector2(0.f, 0.f));
+        this.tileMap2   = generateTileMap(new Vector2(0.f, -16.f));
+        CurTileMap = this.tileMap;
 
         this.mainPlayer = new MainPlayer("MainPlayer2.png");
 
@@ -70,7 +74,7 @@ public class GridTileMap implements IGameObject {
         buttonBitmap = loadBitmapAsset("Button.png");
     }
 
-    private TileStruct[][] generateTileMap() {
+    private TileStruct[][] generateTileMap(Vector2 Offset) {
         TileStruct[][] map = new TileStruct[rows][cols];
         Random random = new Random();
 
@@ -96,7 +100,7 @@ public class GridTileMap implements IGameObject {
 
                 float drawX = startX + (x - startCol) * tileWidth;
                 Vector2 Position = new Vector2(drawX, drawY);
-                map[y][x] = new TileStruct(tileTypes[randomIndex], Position);
+                map[y][x] = new TileStruct(tileTypes[randomIndex], Position.add(Offset));
                 map[y][x].TileWH = new Vector2(tileWidth, tileHeight);
             }
         }
@@ -119,11 +123,27 @@ public class GridTileMap implements IGameObject {
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
                 tileMap[y][x].update(elapsedSeconds);
+                tileMap2[y][x].update(elapsedSeconds);
+
+                if(tileMap[y][x].Pos.y >= 16.f){
+                    Random random = new Random();
+                    TileStruct.TileType[] tileTypes = TileStruct.TileType.values();
+                    int randomIndex = random.nextInt(tileTypes.length);
+                    tileMap[y][x].UpdateType(tileTypes[randomIndex]);
+                    tileMap[y][x].Pos.y = -16.f;
+                }
+                if(tileMap2[y][x].Pos.y >= 16.f){
+                    Random random = new Random();
+                    TileStruct.TileType[] tileTypes = TileStruct.TileType.values();
+                    int randomIndex = random.nextInt(tileTypes.length);
+                    tileMap2[y][x].UpdateType(tileTypes[randomIndex]);
+                    tileMap2[y][x].Pos.y = -16.f;
+                }
             }
         }
 
         mainPlayer.update(elapsedSeconds); // anim uodate
-        mainPlayer.Pos = tileMap[(int)mainPlayer.IndexFromTileMap.y][(int)mainPlayer.IndexFromTileMap.x].Pos; // pos update
+        mainPlayer.Pos = CurTileMap[(int)mainPlayer.IndexFromTileMap.y][(int)mainPlayer.IndexFromTileMap.x].Pos; // pos update
 
     }
 
@@ -148,6 +168,8 @@ public class GridTileMap implements IGameObject {
         for (int y = 0; y < endRow; y++) {
             for (int x = 0; x < endCol; x++) {
                 tileMap[y][x].draw(canvas, this.tileSetBitmap);
+                tileMap2[y][x].draw(canvas, this.tileSetBitmap);
+
             }
         }
 
@@ -193,9 +215,19 @@ public class GridTileMap implements IGameObject {
         if (UpbuttonRect.contains(pts[0], pts[1])) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 if ((int)mainPlayer.IndexFromTileMap.y - 1 >= 0) {
-                    TileStruct.TileType type = tileMap[(int) mainPlayer.IndexFromTileMap.y - 1][(int) mainPlayer.IndexFromTileMap.x].tp;
+                    TileStruct.TileType type = CurTileMap[(int) mainPlayer.IndexFromTileMap.y - 1][(int) mainPlayer.IndexFromTileMap.x].tp;
                     if (type != TileStruct.TileType.OBSTRUCT) {
                         mainPlayer.decrementIndexY();
+                    }
+                }
+                else if((int)mainPlayer.IndexFromTileMap.y == 0){
+                    if(CurTileMap == this.tileMap){
+                        CurTileMap = this.tileMap2 ;
+                        mainPlayer.IndexFromTileMap.y = (float)tileMap2.length - 1;
+                    }
+                    else if(CurTileMap == this.tileMap2){
+                        CurTileMap = this.tileMap;
+                        mainPlayer.IndexFromTileMap.y = (float)tileMap2.length - 1;
                     }
                 }
                 return true;
@@ -204,19 +236,28 @@ public class GridTileMap implements IGameObject {
         if (DownbuttonRect.contains(pts[0], pts[1])) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 if ((int)mainPlayer.IndexFromTileMap.y + 1 < rows) {
-                    TileStruct.TileType type = tileMap[(int)mainPlayer.IndexFromTileMap.y + 1][(int)mainPlayer.IndexFromTileMap.x].tp;
+                    TileStruct.TileType type = CurTileMap[(int)mainPlayer.IndexFromTileMap.y + 1][(int)mainPlayer.IndexFromTileMap.x].tp;
                     if (type != TileStruct.TileType.OBSTRUCT) {
                         mainPlayer.incrementIndexY(rows);
                     }
                 }
-
+                else if((int)mainPlayer.IndexFromTileMap.y == tileMap2.length - 1){
+                    if(CurTileMap == this.tileMap){
+                        CurTileMap = this.tileMap2 ;
+                        mainPlayer.IndexFromTileMap.y = 0.f;
+                    }
+                    else if(CurTileMap == this.tileMap2){
+                        CurTileMap = this.tileMap;
+                        mainPlayer.IndexFromTileMap.y = 0.f;
+                    }
+                }
                 return true;
             }
         }
         if (RightButtonRect.contains(pts[0], pts[1])) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 if ((int)mainPlayer.IndexFromTileMap.x + 1 < cols) {
-                    TileStruct.TileType type = tileMap[(int)mainPlayer.IndexFromTileMap.y][(int)mainPlayer.IndexFromTileMap.x + 1].tp;
+                    TileStruct.TileType type = CurTileMap[(int)mainPlayer.IndexFromTileMap.y][(int)mainPlayer.IndexFromTileMap.x + 1].tp;
                     if (type != TileStruct.TileType.OBSTRUCT) {
                         mainPlayer.incrementIndexX(cols);
                     }
@@ -228,7 +269,7 @@ public class GridTileMap implements IGameObject {
         if (LeftButtonRect.contains(pts[0], pts[1])) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 if ((int)mainPlayer.IndexFromTileMap.x - 1 >= 0) {
-                    TileStruct.TileType type = tileMap[(int)mainPlayer.IndexFromTileMap.y][(int)mainPlayer.IndexFromTileMap.x - 1].tp;
+                    TileStruct.TileType type = CurTileMap[(int)mainPlayer.IndexFromTileMap.y][(int)mainPlayer.IndexFromTileMap.x - 1].tp;
                     if (type != TileStruct.TileType.OBSTRUCT) {
                         mainPlayer.decrementIndexX();
                     }

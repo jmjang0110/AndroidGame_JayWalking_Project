@@ -100,8 +100,8 @@ public class MainPlayer implements IGameObject {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
                 float[] pts = Metrics.fromScreen(event.getX(), event.getY());
-                Pos.x = pts[0] - 1.5f;
-                Pos.y = pts[1] - 1.5f;
+                //Pos.x = pts[0] - 1.5f;
+               // Pos.y = pts[1] - 1.5f;
                 return true;
         }
         return false;

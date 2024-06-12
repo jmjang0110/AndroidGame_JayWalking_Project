@@ -64,8 +64,42 @@ public class TileStruct {
 
 
     public void update(float elapsedSeconds) {
+        this.Pos.y += elapsedSeconds * 5.f;
+    }
 
-        this.Pos.y += elapsedSeconds * 0.5f;
+    public void UpdatePos(Vector2 pos){
+        this.Pos = pos;
+    }
+
+    public void UpdateType(TileType type){
+        tp = type;
+        switch (type) {
+            case WATER:
+                this.PixelSize = new Vector2(64, 64); // 예시 크기
+                this.PixelLT = new Vector2(128, 320); // 예시 위치
+                break;
+            case ROAD:
+                this.PixelSize = new Vector2(33, 33); // 예시 크기
+                this.PixelLT = new Vector2(0, 0); // 예시 위치
+                break;
+            case OBSTRUCT:
+                this.PixelSize = new Vector2(64, 64); // 예시 크기
+                this.PixelLT = new Vector2(0, 252); // 예시 위치
+                break;
+            case PLAYER:
+                this.PixelSize = new Vector2(80, 80); // 예시 크기
+                this.PixelLT = new Vector2(400, 400); // 예시 위치
+                break;
+            case CAR:
+                this.PixelSize = new Vector2(64, 64); // 예시 크기
+                this.PixelLT = new Vector2(0, 193); // 예시 위치
+                break;
+            default:
+                // 기본적으로 (0, 0) 크기와 위치로 설정
+                this.PixelSize = new Vector2(0, 0);
+                this.PixelLT = new Vector2(0, 0);
+                break;
+        }
     }
 
     public void draw(Canvas canvas, Bitmap bmp) {
