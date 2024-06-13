@@ -52,6 +52,8 @@ public class GridTileMap implements IGameObject {
     private Bitmap buttonBitmap;
 
     private Score score;
+
+
     public GridTileMap(String tileSetAsset, int[][] tileMap, float tileWidth, float tileHeight) {
         this.tileSetBitmap = loadBitmapAsset(tileSetAsset);
         this.RoadBitmap = loadBitmapAsset("Road.png");
@@ -143,7 +145,7 @@ public class GridTileMap implements IGameObject {
                         Random rand = new Random();
 
                         if(x == 2){
-                            float randomValue = 2.5f + rand.nextFloat() * 10.f;
+                            float randomValue = 3.f + rand.nextFloat() * 10.f;
                             if(y == 0){
                                 NPCCar[y][x].SetPosX((x) * randomValue);
                             }
@@ -317,7 +319,7 @@ public class GridTileMap implements IGameObject {
         RectF PlayerBox = mainPlayer.dstRect;
         for(int i = 0 ; i < rows;++i){
             if(i % 2 != 0) continue;
-            RectF CarBox = NPCCar[i][2].dstRect;
+            RectF CarBox = NPCCar[i][2].CollideBox;
             if(PlayerBox.intersect(CarBox)){
                 NPCCar[i][2].collide = true;
             }
@@ -325,6 +327,18 @@ public class GridTileMap implements IGameObject {
                 NPCCar[i][2].collide = false;
             }
         }
+
+        for(int i = 0 ; i < rows;++i){
+            if(i % 2 != 0) continue;
+            RectF CarBox = NPCCar2[i][1].CollideBox;
+            if(PlayerBox.intersect(CarBox)){
+                NPCCar2[i][1].collide = true;
+            }
+            else {
+                NPCCar2[i][1].collide = false;
+            }
+        }
+
     }
 
     @Override
@@ -423,7 +437,7 @@ public class GridTileMap implements IGameObject {
                     TileStruct.TileType type = CurTileMap[(int) mainPlayer.IndexFromTileMap.y - 1][(int) mainPlayer.IndexFromTileMap.x].tp;
                     if (type != TileStruct.TileType.OBSTRUCT && type != TileStruct.TileType.TREE) {
                         mainPlayer.decrementIndexY();
-                        score.add(1);
+                        score.add(20);
 
                     }
                 }
@@ -433,7 +447,7 @@ public class GridTileMap implements IGameObject {
                         TileStruct.TileType type = CurTileMap[(int) tileMap2.length - 1][(int) mainPlayer.IndexFromTileMap.x].tp;
                         if (type != TileStruct.TileType.OBSTRUCT && type != TileStruct.TileType.TREE) {
                             mainPlayer.IndexFromTileMap.y = (float)tileMap2.length - 1;
-                            score.add(1);
+                            score.add(20);
 
                         }
 
@@ -441,7 +455,7 @@ public class GridTileMap implements IGameObject {
                     else if(CurTileMap == this.tileMap2){
                         CurTileMap = this.tileMap;
                         mainPlayer.IndexFromTileMap.y = (float)tileMap2.length - 1;
-                        score.add(1);
+                        score.add(20);
 
                     }
                 }
@@ -453,7 +467,7 @@ public class GridTileMap implements IGameObject {
                 if ((int)mainPlayer.IndexFromTileMap.y + 1 < rows) {
                     TileStruct.TileType type = CurTileMap[(int)mainPlayer.IndexFromTileMap.y + 1][(int)mainPlayer.IndexFromTileMap.x].tp;
                     if (type != TileStruct.TileType.OBSTRUCT && type != TileStruct.TileType.TREE) {
-                        mainPlayer.incrementIndexY(rows);
+                        mainPlayer.incrementIndexY(rows);score.add(-10);
                     }
                 }
                 else if((int)mainPlayer.IndexFromTileMap.y == tileMap2.length - 1){
@@ -461,14 +475,14 @@ public class GridTileMap implements IGameObject {
                         CurTileMap = this.tileMap2 ;
                         TileStruct.TileType type = CurTileMap[(int) 0.f][(int) mainPlayer.IndexFromTileMap.x].tp;
                         if (type != TileStruct.TileType.OBSTRUCT && type != TileStruct.TileType.TREE) {
-                            mainPlayer.IndexFromTileMap.y = 0.f;
+                            mainPlayer.IndexFromTileMap.y = 0.f;score.add(-10);
                         }
 
 
                     }
                     else if(CurTileMap == this.tileMap2){
                         CurTileMap = this.tileMap;
-                        mainPlayer.IndexFromTileMap.y = 0.f;
+                        mainPlayer.IndexFromTileMap.y = 0.f;score.add(-10);
                     }
                 }
                 return true;

@@ -17,6 +17,8 @@ public class TileStruct {
         WATER, ROAD, OBSTRUCT, TREE
     }
 
+    public float MaxSpeed = 2.f;
+    public float CurSpeed = 1.f;
     public TileType tp; // 타일 타입
     public Vector2 Pos; // 타일 위치 ( 화면에서 )
     public Vector2 TileWH; // tile width(x), tile height(y)
@@ -38,7 +40,17 @@ public class TileStruct {
 
 
     public void update(float elapsedSeconds) {
-        this.Pos.y += elapsedSeconds ;
+        this.Pos.y += elapsedSeconds * CurSpeed;
+
+        // 1초에 0.05f씩 증가하도록 설정 (10초에 0.5f)
+        float speedIncrement = 0.005f * elapsedSeconds;
+
+        // CurSpeed가 MaxSpeed를 초과하지 않도록 조절
+        if (CurSpeed + speedIncrement > MaxSpeed) {
+            CurSpeed = MaxSpeed;
+        } else {
+            CurSpeed += speedIncrement;
+        }
     }
 
     public void UpdatePos(Vector2 pos){

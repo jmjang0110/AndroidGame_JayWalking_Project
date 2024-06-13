@@ -15,7 +15,7 @@ import kr.ac.tukorea.ge.spgp2024.framework.activity.GameActivity;
 import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IGameObject;
 
 public class Car implements IGameObject {
-
+    public RectF CollideBox;
     public boolean collide;
     public Vector2 PixelLT;
     public Vector2 PixelSize;
@@ -24,7 +24,7 @@ public class Car implements IGameObject {
 
     public Bitmap bmp;
 
-    public float speed = 1.5f;
+    public float speed = 3.f;
     public  Vector2 Pos;
     public Vector2 IndexFromTileMap = new Vector2(0.f, 0.f);
 
@@ -35,6 +35,7 @@ public class Car implements IGameObject {
         PixelLT = pxLT;
         PixelSize   = pxSize;
         bmp = loadBitmapAsset(bmpFileName);
+
     }
     @Override
     public void update(float elapsedSeconds) {
@@ -54,6 +55,8 @@ public class Car implements IGameObject {
 
             // dstRect 설정 (화면에 그릴 위치와 크기)
             dstRect = new RectF(Pos.x, Pos.y, Pos.x + 1.5f, Pos.y + 2.f);
+            CollideBox = new RectF(Pos.x + 0.5f, Pos.y + 0.5f, Pos.x + 1.f, Pos.y + 1.5f);
+
             // 비트맵을 그리기
             canvas.drawBitmap(bmp, srcRect, dstRect, null);
             // Paint 객체를 생성하여 테두리 색상과 두께 설정
@@ -67,7 +70,7 @@ public class Car implements IGameObject {
             borderPaint.setStrokeWidth(0.05f); // 원하는 테두리 두께 설정
 
             // dstRect에 네모 테두리를 그리기
-            canvas.drawRect(dstRect, borderPaint);
+            canvas.drawRect(CollideBox, borderPaint);
         }
     }
 
