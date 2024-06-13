@@ -26,10 +26,6 @@
 
 
 ## 게임 실행 흐름 ( 예상 )
-### Game
-![download](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/490b2837-c841-48b4-887a-58dfc907f4a2)
-### Die
-![maxresdefault](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/cbe4a0b5-fcf2-4bf5-bcd8-5ead534c665c)
 ### Move 
 ![giphy](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/ef415813-0ce4-4a13-b48d-2b3b02549c0a)![hopping-cat-notes](https://github.com/jmjang0110/AndroidGame_JayWalking_Project/assets/90159618/85e3f747-33cc-453b-8328-61c055bc4c4e)
 ### Game Image
@@ -77,11 +73,13 @@
 
 ## MainScene에 구현된 class들의 역할
 -----------------
+
 MainPlayer : MainScene에 등장하는 플레이어 class 
 Car : MainScene에 등장하는 자동차 class 
 GridMapTile : 맵 타일을 관리하는 class ( TileStruct 배열로 관리한다. )
 TileStruct : 맵의 전체 타일 중 하나를 표현하는 class 
 Vector2 : 게임에서 쓰이는 x,y 좌표 class 
+
 -----------------
 1. 사용된 기술
 2. 참고한 것들 : 수업시간에 진행한 내용들
