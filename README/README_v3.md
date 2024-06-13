@@ -74,11 +74,11 @@
 ## MainScene에 구현된 class들의 역할
 -----------------
 
-MainPlayer : MainScene에 등장하는 플레이어 class 
-Car : MainScene에 등장하는 자동차 class 
-GridMapTile : 맵 타일을 관리하는 class ( TileStruct 배열로 관리한다. )
-TileStruct : 맵의 전체 타일 중 하나를 표현하는 class 
-Vector2 : 게임에서 쓰이는 x,y 좌표 class 
+- MainPlayer : MainScene에 등장하는 플레이어 class 
+- Car : MainScene에 등장하는 자동차 class 
+- GridMapTile : 맵 타일을 관리하는 class ( TileStruct 배열로 관리한다. )
+- TileStruct : 맵의 전체 타일 중 하나를 표현하는 class 
+- Vector2 : 게임에서 쓰이는 x,y 좌표 class 
 
 -----------------
 1. 사용된 기술
