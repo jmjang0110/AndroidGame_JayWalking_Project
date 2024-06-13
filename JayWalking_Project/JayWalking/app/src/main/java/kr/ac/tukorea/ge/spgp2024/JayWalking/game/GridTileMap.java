@@ -1,6 +1,8 @@
 package kr.ac.tukorea.ge.spgp2024.JayWalking.game;
 
+import kr.ac.tukorea.ge.spgp2024.JayWalking.R;
 import kr.ac.tukorea.ge.spgp2024.framework.map.TiledMap;
+import kr.ac.tukorea.ge.spgp2024.framework.objects.Score;
 import kr.ac.tukorea.ge.spgp2024.framework.objects.TiledBackground;
 
 import android.graphics.Bitmap;
@@ -49,6 +51,7 @@ public class GridTileMap implements IGameObject {
 
     private Bitmap buttonBitmap;
 
+    private Score score;
     public GridTileMap(String tileSetAsset, int[][] tileMap, float tileWidth, float tileHeight) {
         this.tileSetBitmap = loadBitmapAsset(tileSetAsset);
         this.RoadBitmap = loadBitmapAsset("Road.png");
@@ -75,13 +78,14 @@ public class GridTileMap implements IGameObject {
         LeftButtonRect = new RectF(7.5f - 3.f, 14.5f, 9.f -3.f, 16.f);
 
         buttonBitmap = loadBitmapAsset("Button.png");
+
+        this.score = new Score(R.mipmap.number_24x32, Metrics.width - 0.5f, 0.5f, 0.6f);
+        score.setScore(1);
+
     }
 
     private TileStruct[][] generateTileMap(Vector2 Offset, int tileNum) {
         TileStruct[][] map = new TileStruct[rows][cols];
-
-
-
         Random random = new Random();
 
         float scroll_x = scrollX, scroll_y = scrollY;
@@ -136,21 +140,23 @@ public class GridTileMap implements IGameObject {
                         map[y][x] = new TileStruct(TileStruct.TileType.ROAD, Position.add(Offset));
                         map[y][x].TileWH = new Vector2(tileWidth, tileHeight);
 
-                        if(x % 3 == 0){
+                        Random rand = new Random();
 
+                        if(x == 2){
+                            float randomValue = 2.5f + rand.nextFloat() * 10.f;
                             if(y == 0){
-                                NPCCar[y][x].Pos.x = x * 2.f;
+                                NPCCar[y][x].SetPosX((x) * randomValue);
                             }
                             else if(y == 2){
-                                NPCCar[y][x + 1].Pos.x = (x + 1) * 2.f;
-                                NPCCar[y][x + 1].speed = 1.5f;
+                                NPCCar[y][x + 1].SetPosX((x + 1) * randomValue);
+                                NPCCar[y][x + 1].SetSpeed(randomValue);
                             }
                             else if(y == 4){
-                                NPCCar[y][x + 2].Pos.x = (x + 2) * 2.f;
-                                NPCCar[y][x + 2].speed = 2.5f;
+                                NPCCar[y][x + 2].SetPosX((x + 2) * randomValue);
+                                NPCCar[y][x + 2].SetSpeed(randomValue);
                             }
                             else{
-                                NPCCar[y][x].Pos.x = x * 2.f;
+                                NPCCar[y][x].SetPosX(x * 2.f);
                             }
                         }
 
@@ -173,25 +179,23 @@ public class GridTileMap implements IGameObject {
                     if(y % 2 == 0){
                         map[y][x] = new TileStruct(TileStruct.TileType.ROAD, Position.add(Offset));
                         map[y][x].TileWH = new Vector2(tileWidth, tileHeight);
-
-                        if(x % 3 == 0){
+                        Random rand = new Random();
+                        float randomValue = 3.f + rand.nextFloat() * 8.f;
+                        if(x == 1){
                             NPCCar2[y][x].Pos = Position.add(Offset);
-                            if(x % 3 == 0){
-                                NPCCar2[y][x].Pos = Position.add(Offset);
-                                if(y == 0){
-                                    NPCCar2[y][x].Pos.x = x * 2.f;
-                                }
-                                else if(y == 2){
-                                    NPCCar2[y][x + 1].Pos.x = (x + 1) * 2.f;
-                                    NPCCar2[y][x + 2].speed = 3.f;
-                                }
-                                else if(y == 4){
-                                    NPCCar2[y][x + 2].Pos.x = (x + 2) * 2.f;
-                                    NPCCar2[y][x + 2].speed = 4.f;
-                                }
-                                else{
-                                    NPCCar2[y][x].Pos.x = x * 2.f;
-                                }
+                            if(y == 0){
+                                NPCCar2[y][x].SetPosX((x) * randomValue);
+                            }
+                            else if(y == 2){
+                                NPCCar2[y][x + 1].SetPosX((x + 1) * randomValue);
+                                NPCCar2[y][x + 1].SetSpeed(randomValue);
+                            }
+                            else if(y == 4){
+                                NPCCar2[y][x + 2].SetPosX((x + 2) * randomValue);
+                                NPCCar2[y][x + 2].SetSpeed(randomValue);
+                            }
+                            else{
+                                NPCCar2[y][x].SetPosX(x * 2.f);
                             }
                         }
 
@@ -210,7 +214,7 @@ public class GridTileMap implements IGameObject {
                 }
             }
             if(roadCount == 0){
-                map[y][random.nextInt(5)].tp = TileStruct.TileType.ROAD;
+                map[y][random.nextInt(6)].tp = TileStruct.TileType.ROAD;
             }
         }
 
@@ -266,13 +270,39 @@ public class GridTileMap implements IGameObject {
             }
         }
 
-        for (int y = 0; y < rows; y += 2) {
-            for (int x = 0; x < cols; x += 3) {
-                NPCCar[y][x].update(elapsedSeconds);
-                NPCCar[y][x].Pos.y = tileMap[y][x].Pos.y;
+        for (int y = 1; y < rows; y += 2) {
+            int roadcnt = 0;
+            for (int x = 0; x < cols; x++) {
+                if(tileMap[y][x].tp == TileStruct.TileType.ROAD){
+                    roadcnt ++;
+                }
+            }
+            if(roadcnt == 0){
+                Random rand = new Random();
+                tileMap[y][rand.nextInt(6)].tp = TileStruct.TileType.ROAD;
+            }
+        }
 
-                NPCCar2[y][x].update(elapsedSeconds);
-                NPCCar2[y][x].Pos.y = tileMap2[y][x].Pos.y;
+        for (int y = 1; y < rows; y += 2) {
+            int roadcnt = 0;
+            for (int x = 0; x < cols; x++) {
+                if(tileMap2[y][x].tp == TileStruct.TileType.ROAD){
+                    roadcnt ++;
+                }
+            }
+            if(roadcnt == 0){
+                Random rand = new Random();
+                tileMap2[y][rand.nextInt(6)].tp = TileStruct.TileType.ROAD;
+            }
+        }
+
+        for (int y = 0; y < rows; y += 2) {
+            for (int x = 0; x < cols; x++) {
+                    NPCCar[y][x].update(elapsedSeconds);
+                    NPCCar[y][x].Pos.y = tileMap[y][x].Pos.y;
+
+                    NPCCar2[y][x].update(elapsedSeconds);
+                    NPCCar2[y][x].Pos.y = tileMap2[y][x].Pos.y;
 
             }
         }
@@ -280,7 +310,21 @@ public class GridTileMap implements IGameObject {
         mainPlayer.update(elapsedSeconds); // anim uodate
         mainPlayer.Pos = CurTileMap[(int)mainPlayer.IndexFromTileMap.y][(int)mainPlayer.IndexFromTileMap.x].Pos; // pos update
 
+        this.score .update(elapsedSeconds);
 
+
+        //충돌체크
+        RectF PlayerBox = mainPlayer.dstRect;
+        for(int i = 0 ; i < rows;++i){
+            if(i % 2 != 0) continue;
+            RectF CarBox = NPCCar[i][2].dstRect;
+            if(PlayerBox.intersect(CarBox)){
+                NPCCar[i][2].collide = true;
+            }
+            else {
+                NPCCar[i][2].collide = false;
+            }
+        }
     }
 
     @Override
@@ -326,14 +370,16 @@ public class GridTileMap implements IGameObject {
             }
         }
 
-        for (int y = 0; y < endRow; y += 2) {
-            for (int x = 0; x < endCol; x += 3) {
-                NPCCar[y][x].draw(canvas);
-                NPCCar2[y][x].draw(canvas);
+        for (int y = 0; y < endRow; y+=2) {
+            for (int x = 0; x < endCol; x++) {
+                if(x == 2)
+                    NPCCar[y][x].draw(canvas);
+                if(x == 1)
+                    NPCCar2[y][x].draw(canvas);
             }
         }
         this.mainPlayer.draw(canvas);
-
+        this.score.draw(canvas);
 
         // Draw buttons using the bitmap
         Rect srcRect = new Rect(800, 0, 1600, 781);
@@ -377,16 +423,26 @@ public class GridTileMap implements IGameObject {
                     TileStruct.TileType type = CurTileMap[(int) mainPlayer.IndexFromTileMap.y - 1][(int) mainPlayer.IndexFromTileMap.x].tp;
                     if (type != TileStruct.TileType.OBSTRUCT && type != TileStruct.TileType.TREE) {
                         mainPlayer.decrementIndexY();
+                        score.add(1);
+
                     }
                 }
                 else if((int)mainPlayer.IndexFromTileMap.y == 0){
                     if(CurTileMap == this.tileMap){
                         CurTileMap = this.tileMap2 ;
-                        mainPlayer.IndexFromTileMap.y = (float)tileMap2.length - 1;
+                        TileStruct.TileType type = CurTileMap[(int) tileMap2.length - 1][(int) mainPlayer.IndexFromTileMap.x].tp;
+                        if (type != TileStruct.TileType.OBSTRUCT && type != TileStruct.TileType.TREE) {
+                            mainPlayer.IndexFromTileMap.y = (float)tileMap2.length - 1;
+                            score.add(1);
+
+                        }
+
                     }
                     else if(CurTileMap == this.tileMap2){
                         CurTileMap = this.tileMap;
                         mainPlayer.IndexFromTileMap.y = (float)tileMap2.length - 1;
+                        score.add(1);
+
                     }
                 }
                 return true;
@@ -403,7 +459,12 @@ public class GridTileMap implements IGameObject {
                 else if((int)mainPlayer.IndexFromTileMap.y == tileMap2.length - 1){
                     if(CurTileMap == this.tileMap){
                         CurTileMap = this.tileMap2 ;
-                        mainPlayer.IndexFromTileMap.y = 0.f;
+                        TileStruct.TileType type = CurTileMap[(int) 0.f][(int) mainPlayer.IndexFromTileMap.x].tp;
+                        if (type != TileStruct.TileType.OBSTRUCT && type != TileStruct.TileType.TREE) {
+                            mainPlayer.IndexFromTileMap.y = 0.f;
+                        }
+
+
                     }
                     else if(CurTileMap == this.tileMap2){
                         CurTileMap = this.tileMap;
@@ -437,7 +498,9 @@ public class GridTileMap implements IGameObject {
                 return true;
             }
         }
+
         return this.mainPlayer.onTouch(event);
     }
+
 
 }

@@ -27,19 +27,17 @@ public class MainScene extends Scene {
         //Metrics.setGameSize(16, 16);
         initLayers(Layer.COUNT);
 
-       // add(Layer.controller, new EnemyGenerator());
+       //add(Layer.controller, new EnemyGenerator());
        // add(Layer.controller, new CollisionChecker(this));
 
         //add(Layer.bg, new VertScrollBackground(R.mipmap.bg_city, 0.2f));
         //add(Layer.bg, new ForestTiledBg());
-       // add(Layer.bg, new VertScrollBackground(R.mipmap.clouds, 0.4f));
+        //add(Layer.bg, new VertScrollBackground(R.mipmap.clouds, 0.4f));
 
         //this.fighter = new Fighter();
         //add(Layer.player, fighter);
 
-        this.score = new Score(R.mipmap.number_24x32, Metrics.width - 0.5f, 0.5f, 0.6f);
-        score.setScore(0);
-        add(Layer.ui, score);
+
 
         // 화면의 폭과 높이를 측정합니다.
         float screenWidth = Metrics.width;
@@ -59,14 +57,17 @@ public class MainScene extends Scene {
         this.gridTileMap = new GridTileMap("forest_tiles.png", tileMap, tileWidth, tileHeight);
         add(Layer.bg, gridTileMap);
 
+
     }
 
     public void addScore(int amount) {
+
         score.add(amount);
     }
 
     @Override
     public void update(float elapsedSeconds) {
+
         super.update(elapsedSeconds);
     }
 

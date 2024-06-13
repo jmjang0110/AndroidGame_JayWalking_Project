@@ -16,6 +16,7 @@ import kr.ac.tukorea.ge.spgp2024.framework.interfaces.IGameObject;
 
 public class Car implements IGameObject {
 
+    public boolean collide;
     public Vector2 PixelLT;
     public Vector2 PixelSize;
     public Rect srcRect;
@@ -27,6 +28,9 @@ public class Car implements IGameObject {
     public  Vector2 Pos;
     public Vector2 IndexFromTileMap = new Vector2(0.f, 0.f);
 
+    public void SetPos(Vector2 p){ Pos = p; }
+    public void SetSpeed(float f){ speed = f; }
+    public void SetPosX(float x) { Pos.x = x; }
     public Car(Vector2 pxLT, Vector2 pxSize, String bmpFileName){
         PixelLT = pxLT;
         PixelSize   = pxSize;
@@ -52,7 +56,18 @@ public class Car implements IGameObject {
             dstRect = new RectF(Pos.x, Pos.y, Pos.x + 1.5f, Pos.y + 2.f);
             // 비트맵을 그리기
             canvas.drawBitmap(bmp, srcRect, dstRect, null);
+            // Paint 객체를 생성하여 테두리 색상과 두께 설정
+            Paint borderPaint = new Paint();
+            if(collide == false)
+                borderPaint.setColor(Color.GREEN); // 원하는 테두리 색상 설정
+            else
+                borderPaint.setColor(Color.RED); // 원하는 테두리 색상 설정
 
+            borderPaint.setStyle(Paint.Style.STROKE); // 테두리만 그리도록 설정
+            borderPaint.setStrokeWidth(0.05f); // 원하는 테두리 두께 설정
+
+            // dstRect에 네모 테두리를 그리기
+            canvas.drawRect(dstRect, borderPaint);
         }
     }
 
