@@ -14,7 +14,7 @@ public class TileStruct {
 
     public enum TileType
     {
-        WATER, ROAD, OBSTRUCT, PLAYER, CAR
+        WATER, ROAD, OBSTRUCT, TREE
     }
 
     public TileType tp; // 타일 타입
@@ -28,33 +28,7 @@ public class TileStruct {
     public TileStruct(TileType type, Vector2 position) {
         this.tp = type;
         this.Pos = position;
-        switch (tp) {
-            case WATER:
-                this.PixelSize = new Vector2(64, 64); // 예시 크기
-                this.PixelLT = new Vector2(128, 320); // 예시 위치
-                break;
-            case ROAD:
-                this.PixelSize = new Vector2(33, 33); // 예시 크기
-                this.PixelLT = new Vector2(0, 0); // 예시 위치
-                break;
-            case OBSTRUCT:
-                this.PixelSize = new Vector2(64, 64); // 예시 크기
-                this.PixelLT = new Vector2(0, 252); // 예시 위치
-                break;
-            case PLAYER:
-                this.PixelSize = new Vector2(80, 80); // 예시 크기
-                this.PixelLT = new Vector2(400, 400); // 예시 위치
-                break;
-            case CAR:
-                this.PixelSize = new Vector2(64, 64); // 예시 크기
-                this.PixelLT = new Vector2(0, 193); // 예시 위치
-                break;
-            default:
-                // 기본적으로 (0, 0) 크기와 위치로 설정
-                this.PixelSize = new Vector2(0, 0);
-                this.PixelLT = new Vector2(0, 0);
-                break;
-        }
+        UpdateType(tp);
         // 테두리 Paint 객체 초기화
         borderPaint = new Paint();
         borderPaint.setStyle(Paint.Style.STROKE);
@@ -79,18 +53,14 @@ public class TileStruct {
                 this.PixelLT = new Vector2(128, 320); // 예시 위치
                 break;
             case ROAD:
-                this.PixelSize = new Vector2(33, 33); // 예시 크기
-                this.PixelLT = new Vector2(0, 0); // 예시 위치
+                this.PixelSize = new Vector2(600, 320); // 예시 크기
+                this.PixelLT = new Vector2(850, 0); // 예시 위치
                 break;
             case OBSTRUCT:
                 this.PixelSize = new Vector2(64, 64); // 예시 크기
                 this.PixelLT = new Vector2(0, 252); // 예시 위치
                 break;
-            case PLAYER:
-                this.PixelSize = new Vector2(80, 80); // 예시 크기
-                this.PixelLT = new Vector2(400, 400); // 예시 위치
-                break;
-            case CAR:
+            case TREE:
                 this.PixelSize = new Vector2(64, 64); // 예시 크기
                 this.PixelLT = new Vector2(0, 193); // 예시 위치
                 break;

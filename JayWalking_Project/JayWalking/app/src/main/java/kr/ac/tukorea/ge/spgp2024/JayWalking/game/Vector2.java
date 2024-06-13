@@ -8,7 +8,12 @@ public class Vector2 {
         this.x = x;
         this.y = y;
     }
-
+    // 복사 생성자
+    public Vector2(Vector2 other)
+    {
+        this.x  = other.x;
+        this.x  = other.y;
+    }
     // 덧셈 연산
     public Vector2 add(Vector2 other) {
         return new Vector2(this.x + other.x, this.y + other.y);
