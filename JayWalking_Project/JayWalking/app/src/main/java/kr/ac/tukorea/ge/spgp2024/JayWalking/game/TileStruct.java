@@ -38,7 +38,7 @@ public class TileStruct {
 
 
     public void update(float elapsedSeconds) {
-        this.Pos.y += elapsedSeconds * 5.f;
+        this.Pos.y += elapsedSeconds * 2.f;
     }
 
     public void UpdatePos(Vector2 pos){

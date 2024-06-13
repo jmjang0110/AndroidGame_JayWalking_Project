@@ -23,7 +23,7 @@ public class Car implements IGameObject {
 
     public Bitmap bmp;
 
-    public float speed = 1.f;
+    public float speed = 1.5f;
     public  Vector2 Pos;
     public Vector2 IndexFromTileMap = new Vector2(0.f, 0.f);
 
